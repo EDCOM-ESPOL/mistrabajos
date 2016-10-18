@@ -11,6 +11,17 @@
 (function ($, OC) {
 
 	$(document).ready(function () {
+
+		$.getJSON("/templates/part.content.php",function(data){
+			console.log("ok");
+			$.each(data,function(){
+				var name_job = this["name"];
+
+				$('#echo-result').append(name_job);
+				
+			})
+		});
+
 		$('#hello').click(function () {
 			alert('Hello from your script file');
 		});
