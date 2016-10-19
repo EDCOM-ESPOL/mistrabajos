@@ -29,8 +29,10 @@
 				completeData = JSON.parse(response.get);
 				var count = Object.keys(completeData.jobs).length;
 				var jobsArray = [];
+
 				for (var i = 0; i < count; i++) {
-					jobsArray.push(completeData.jobs[i].name+" "+completeData.jobs[i].state +" "+ completeData.jobs[i].blocks[0].p_percentage + "<br>");
+						jobsArray.push(completeData.jobs[i].name+" "+completeData.jobs[i].state +" "+ completeData.jobs[i].blocks[0].p_percentage + "<br>");
+					
 				}	
 
 				$('#echo-result').html(jobsArray);
