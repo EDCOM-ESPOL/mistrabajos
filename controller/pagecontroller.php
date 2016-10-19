@@ -49,5 +49,20 @@ class PageController extends Controller {
 		return new DataResponse(['echo' => $echo]);
 	}
 
+	public function doCall($get) {
+		/*$ch = curl_init("http://192.168.100.3:51000/");
+		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $echo);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
+		'AFANASY: 23',     
+		'Content-Type: application/json')                                                                      
+		);                                                                  
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                                                        
+		$result = curl_exec($ch);
+		curl_close($ch);*/
+
+
+		return new DataResponse(['call' => $get]);
+	}
 
 }

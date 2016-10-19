@@ -12,7 +12,7 @@
 
 	$(document).ready(function () {
 
-		$.getJSON("/templates/part.content.php",function(data){
+		/*$.getJSON("/templates/part.content.php",function(data){
 			console.log("ok");
 			$.each(data,function(){
 				var name_job = this["name"];
@@ -20,7 +20,7 @@
 				$('#echo-result').append(name_job);
 				
 			})
-		});
+		});*/
 
 		$('#hello').click(function () {
 			alert('Hello from your script file');
@@ -29,14 +29,26 @@
 		$('#echo').click(function () {
 			var url = OC.generateUrl('/apps/mistrabajos/echo');
 			var data = {
-				echo: $('#echo-content').val()
+				get: type
 			};
 
 			$.post(url, data).success(function (response) {
-				$('#echo-result').text(response.echo);
+				$('#echo-result').text(response.call);
 			});
 
 		});
+
+		/*$('#jobDone').click(function () {
+			var url = OC.generateUrl('/apps/mistrabajos/call');
+			var data = {
+				get: type
+			};
+
+			$.post(url, data).success(function (response) {
+				$('#echo-result').text(response.call);
+			});
+
+		});*/
 	});
 
 })(jQuery, OC);
