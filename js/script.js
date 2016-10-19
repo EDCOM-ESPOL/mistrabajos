@@ -12,43 +12,29 @@
 
 	$(document).ready(function () {
 
-		/*$.getJSON("/templates/part.content.php",function(data){
-			console.log("ok");
-			$.each(data,function(){
-				var name_job = this["name"];
-
-				$('#echo-result').append(name_job);
-				
-			})
-		});*/
+		setInterval(ajaxRequest, 1000);
 
 		$('#hello').click(function () {
 			alert('Hello from your script file');
 		});
-
-		$('#echo').click(function () {
-			var url = OC.generateUrl('/apps/mistrabajos/echo');
-			var data = {
-				get: type
-			};
-
-			$.post(url, data).success(function (response) {
-				$('#echo-result').text(response.call);
-			});
-
-		});
-
-		/*$('#jobDone').click(function () {
-			var url = OC.generateUrl('/apps/mistrabajos/call');
-			var data = {
-				get: type
-			};
-
-			$.post(url, data).success(function (response) {
-				$('#echo-result').text(response.call);
-			});
-
-		});*/
 	});
+
+	function ajaxRequest(){
+		var url = OC.generateUrl('/apps/mistrabajos/echo');
+			var data = {
+				type: "jobs"
+			};
+
+			$.post(url, data).success(function (response) {
+				completeData = JSON.parse(response.get);
+				var count = Object.keys(completeData.jobs).length;
+				var jobsArray = [];
+				for (var i = 0; i < count; i++) {
+					jobsArray.push(completeData.jobs[i].name+" "+completeData.jobs[i].state +" "+ completeData.jobs[i].blocks[0].p_percentage + "<br>");
+				}	
+
+				$('#echo-result').html(jobsArray);
+			});
+	};
 
 })(jQuery, OC);

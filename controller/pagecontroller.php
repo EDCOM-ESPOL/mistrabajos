@@ -45,24 +45,21 @@ class PageController extends Controller {
 	 * Simply method that posts back the payload of the request
 	 * @NoAdminRequired
 	 */
-	public function doEcho($echo) {
-		return new DataResponse(['echo' => $echo]);
-	}
-
-	public function doCall($get) {
-		/*$ch = curl_init("http://192.168.100.3:51000/");
+	public function doEcho($type) {
+        $data = array("get" => array("type"=>$type));  
+		$data_string = json_encode($data);
+		$ch = curl_init("http://200.126.7.204:51000/");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $echo);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
 		'AFANASY: 23',     
-		'Content-Type: application/json')                                                                      
+		'Content-Type: application/json')                                 
 		);                                                                  
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                                                        
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$result = curl_exec($ch);
-		curl_close($ch);*/
+		curl_close($ch);
 
-
-		return new DataResponse(['call' => $get]);
+		return new DataResponse(['get' => $result]);
 	}
 
 }
