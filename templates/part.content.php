@@ -1,7 +1,5 @@
 <p>Hello World <?php p($_['user']) ?></p>
 
-<p><button id="echo">Send ajax request</button></p>
-
 Ajax response: <div id="echo-result"></div>
 
 <!--<p><button id="jobDone">Send ajax request</button></p>
