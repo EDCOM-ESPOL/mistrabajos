@@ -46,7 +46,7 @@
 							var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
 							d.setUTCSeconds(utcSeconds);
 							var date = formatDate(d);
-							jobsArray.push("<div class='col-xs-12 col-sm-12 col-md-12'><div class='col-xs-3 col-sm-3 col-md-3'>"+completeData.jobs[i].name+" </div><div class='col-xs-3 col-sm-3 col-md-3'> "+date+" </div><div class='col-xs-2 col-sm-2 col-md-2'> "+ completeData.jobs[i].blocks[0].p_percentage+" </div><div class='col-xs-2 col-sm-2 col-md-2'>Completo</div><div class='col-xs-2 col-sm-2 col-md-2'><a href='#'>link</div></div>");
+							jobsArray.push("<div class='jobInside col-xs-12 col-sm-12 col-md-12'><div class='col-xs-3 col-sm-3 col-md-3'>"+completeData.jobs[i].name+" </div><div class='col-xs-3 col-sm-3 col-md-3'> "+date+" </div><div class='col-xs-2 col-sm-2 col-md-2'> "+ completeData.jobs[i].blocks[0].p_percentage+" </div><div class='col-xs-2 col-sm-2 col-md-2'>Completo</div><div class='col-xs-2 col-sm-2 col-md-2'><a href='#'>link</div></div>");
 					}	
 				}
 				$('#echo-result').html(jobsArray);
@@ -64,7 +64,11 @@
 				var count = Object.keys(completeData.jobs).length;
 				for (var i = 0; i < count; i++) {
 					if (completeData.jobs[i].state !== " DON" && completeData.jobs[i].user_name === $('#expandDisplayName').text()){
-					    	jobsArray.push("<div>"+completeData.jobs[i].name+" "+completeData.jobs[i].state +" "+ completeData.jobs[i].blocks[0].p_percentage+" "+completeData.jobs[i].user_name+"</div>");  
+					    	var utcSeconds = completeData.jobs[i].time_started;
+							var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+							d.setUTCSeconds(utcSeconds);
+							var date = formatDate(d);
+					    	jobsArray.push("<div class='jobInside col-xs-12 col-sm-12 col-md-12'><div class='col-xs-3 col-sm-3 col-md-3'>"+completeData.jobs[i].name+" </div><div class='col-xs-3 col-sm-3 col-md-3'> "+date+" </div><div class='col-xs-2 col-sm-2 col-md-2'> "+ completeData.jobs[i].blocks[0].p_percentage+" </div><div class='col-xs-2 col-sm-2 col-md-2'>Completo</div><div class='col-xs-2 col-sm-2 col-md-2'><a href='#'>link</div></div>");  
 						}
 					}	
 				$('#echo-result').html(jobsArray);
