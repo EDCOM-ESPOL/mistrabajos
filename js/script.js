@@ -45,15 +45,12 @@
 							var utcSeconds = completeData.jobs[i].time_started;
 							var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
 							d.setUTCSeconds(utcSeconds);
-					
-					    
-							jobsArray.push("<div class='col-md-10'><div class ='col-md-2'>"+completeData.jobs[i].name+"</div><div class ='col-md-2'>"+completeData.jobs[i].state +"</div><div class ='col-md-2'>"+ completeData.jobs[i].blocks[0].p_percentage+"</div><div class ='col-md-2'>"+completeData.jobs[i].user_name+"</div><div class ='col-md-2'>"+d+"</div></div>")
+							var date = formatDate(d);
+							jobsArray.push("<div class='col-xs-12 col-sm-12 col-md-12'><div class='col-xs-3 col-sm-3 col-md-3'>"+completeData.jobs[i].name+" </div><div class='col-xs-3 col-sm-3 col-md-3'> "+date+" </div><div class='col-xs-2 col-sm-2 col-md-2'> "+ completeData.jobs[i].blocks[0].p_percentage+" </div><div class='col-xs-2 col-sm-2 col-md-2'>Completo</div><div class='col-xs-2 col-sm-2 col-md-2'><a href='#'>link</div></div>");
 					}	
 				}
 				$('#echo-result').html(jobsArray);
 			});
-
-			//http://codepen.io/alassetter/full/cyrfB/
 	};
 
 	function ajaxRequestProcess(){
@@ -73,5 +70,15 @@
 				$('#echo-result').html(jobsArray);
 			});
 	};
+
+	function formatDate(d){
+		date = new Date(d)
+		var dd = date.getDate(); 
+		var mm = date.getMonth()+1;
+		var yyyy = date.getFullYear(); 
+		if(dd<10){dd='0'+dd} 
+		if(mm<10){mm='0'+mm};
+		return d = dd+'/'+mm+'/'+yyyy
+	}
 
 })(jQuery, OC);
