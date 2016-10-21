@@ -13,6 +13,8 @@
 	$(document).ready(function () {
 
 		var timer// = false;
+
+		ajaxRequestDon();
 		$('#endJob').click(function () {
 			ajaxRequestDon();
 			if (timer !== false){
