@@ -27,7 +27,7 @@
    word-break: break-all;
 }
   #tbodyid tr:hover{
-   background-color:rgba(77, 119, 179, 0.5) !important;
+   background-color:rgba(0, 0, 0, 0.05) !important;
 }
 
  thead th{
@@ -71,15 +71,22 @@
   text-decoration: none;
   display: inline-block;
   padding: 1px 7px;
-  background: #91b9e6;
+  background: #818181;
   color: white;
   border-radius: 3px;
 }
 
 .paging-nav .selected-page {
-  background: #187ed5;
+  background: #1d2d44;
   font-weight: bold;
 }
+.progress-bar{
+  background-color: #5cb85c !important ;
+}
+.fa-arrow-circle-o-down{
+  color: #5cb85c !important ;
+}
+
 
 @media (max-width: 386px) {
   .body-head span {

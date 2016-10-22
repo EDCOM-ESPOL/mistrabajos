@@ -1,7 +1,7 @@
 <?php
 vendor_script('mistrabajos', 'paging');
 script('mistrabajos', 'script');
-style('mistrabajos', array('bootstrap', 'style'));
+style('mistrabajos', array('bootstrap', 'font-awesome.min', 'style'));
 ?>
 
 <div id="app">

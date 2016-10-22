@@ -29,8 +29,6 @@
 			$('#processJob').attr("class", "selectedOption");
 			$('#endJob').attr("class", " ");
 			timer = setInterval(ajaxRequestProcess, 1000);
-			//ajaxRequestProcess();
-
 		});
 		
 	});
@@ -55,16 +53,12 @@
 							var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
 							d.setUTCSeconds(utcSeconds);
 							var date = formatDate(d);
-							//$('#tbodyid').append
 							var percentage = "<div class='progress-bar' role='progressbar' aria-valuenow= '60' aria-valuemin='0' aria-valuemax='100' style='width:100%;'>"+ completeData.jobs[i].blocks[0].p_percentage+"%</div>";
-							jobsArray.push("<tr><td>"+listnum+"</td><td>"+completeData.jobs[i].name+" </td><td> "+date+" </td><td> "+ percentage+" </td><td>Completo</td><td><a href='#'>link<td></tr>");
+							jobsArray.push("<tr><td>"+listnum+"</td><td>"+completeData.jobs[i].name+" </td><td> "+date+" </td><td> "+ percentage+" </td><td>Completo</td><td><a href='#'>  <i class='fa fa-arrow-circle-o-down fa-2x'></i></a><td></tr>");
 					}	
 				}
 				addData(jobsArray);
-
-
 			});
-
 		};
 
 	function ajaxRequestProcess(){
@@ -88,7 +82,6 @@
 								$('#bigCont').append('<div class="panel panel-default"><div class="panel-body"><div class="panel body-head"><h3>'+completeData.jobs[i].name+'</h3><span class="label label-primary">Renderizando...</span></div><div class="panel body-info"><div class="panel row-info"><p class="info-label">Fecha: </p><p class="info-text">'+date+'</p></div><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: '+completeData.jobs[i].blocks[0].p_percentage+'%;">'+completeData.jobs[i].blocks[0].p_percentage+'%</div></div></div></div></div>');
 						}
 					}	
-				//addData(jobsArray);
 			});
 	};
 
@@ -106,11 +99,7 @@
 
 		$('#bigCont').append('<table class="table"><thead><tr><th>#</th><th>Nombre de Escena</th><th>Fecha</th><th>Porcentaje de Porgreso</th><th>Estado</th><th>Descarga</th></tr></thead><tbody id="tbodyid"></tbody></table>');
 		$(".table tbody").html(jobsArray);
-		$('.table').paging({limit:10});
+		$('.table').paging({limit:5});
 	};
-
-		
-
-
 
 })(jQuery, OC);
