@@ -1,5 +1,5 @@
 <?php
-script('mistrabajos', 'script');
+script('mistrabajos', array('script', 'paging'));
 style('mistrabajos', array('bootstrap', 'style'));
 ?>
 
