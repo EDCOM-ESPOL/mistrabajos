@@ -1,4 +1,5 @@
 <!--<p>Hello World <?php //p($_['user']) ?></p>-->
+<div id="bigCont">
 	<table class="table">
 		<thead>
 			<tr>
@@ -13,6 +14,4 @@
 		<tbody id="tbodyid">
 		</tbody>
 	</table>
-
-
-
+</div>

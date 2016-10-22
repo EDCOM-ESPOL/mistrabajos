@@ -11,7 +11,7 @@
 (function ($, OC) {
 
 	$(document).ready(function () {
-
+        
 		var timer = false;
 		ajaxRequestDon();    
         $('#endJob').attr("class", "selectedOption");
@@ -29,20 +29,22 @@
 			$('#processJob').attr("class", "selectedOption");
 			$('#endJob').attr("class", " ");
 			timer = setInterval(ajaxRequestProcess, 1000);
+			//ajaxRequestProcess();
 
 		});
-
-		
 		
 	});
 
 	function ajaxRequestDon(){
+
 		var jobsArray = [];
 		var url = OC.generateUrl('/apps/mistrabajos/echo');
 			var data = {
 				type: "jobs"
 			};
 			$.post(url, data).success(function (response) {
+				//$('.table').remove();
+				$('#bigCont').empty();
 				var listnum=0;
 				var completeData = JSON.parse(response.get);
 				var count = Object.keys(completeData.jobs).length;
@@ -53,13 +55,17 @@
 							var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
 							d.setUTCSeconds(utcSeconds);
 							var date = formatDate(d);
-							//jobsArray.push("<div class='jobInside col-xs-12 col-sm-12 col-md-12'><div class='col-xs-3 col-sm-3 col-md-3'>"+completeData.jobs[i].name+" </div><div class='col-xs-2 col-sm-2 col-md-2'> "+date+" </div><div class='col-xs-3 col-sm-3 col-md-3'> "+ completeData.jobs[i].blocks[0].p_percentage+" </div><div class='col-xs-2 col-sm-2 col-md-2'>Completo</div><div class='col-xs-2 col-sm-2 col-md-2'><a href='#'>link</div></div>");
-							jobsArray.push("<tr><td>"+listnum+"</td><td>"+completeData.jobs[i].name+" </td><td> "+date+" </td><td> "+ completeData.jobs[i].blocks[0].p_percentage+" </td><td>Completo</td><td><a href='#'>link<td></tr>");
+							//$('#tbodyid').append
+							var percentage = "<div class='progress-bar' role='progressbar' aria-valuenow= '60' aria-valuemin='0' aria-valuemax='100' style='width:100%;'>"+ completeData.jobs[i].blocks[0].p_percentage+"%</div>";
+							jobsArray.push("<tr><td>"+listnum+"</td><td>"+completeData.jobs[i].name+" </td><td> "+date+" </td><td> "+ percentage+" </td><td>Completo</td><td><a href='#'>link<td></tr>");
 					}	
 				}
-				$(".table tbody").html(jobsArray);
+				addData(jobsArray);
+
+
 			});
-	};
+
+		};
 
 	function ajaxRequestProcess(){
 		var jobsArray = [];
@@ -68,6 +74,7 @@
 				type: "jobs"
 			};
 			$.post(url, data).done(function (response) {
+				$('#bigCont').empty();
 				var listnum=0;
 			    var completeData = JSON.parse(response.get);
 				var count = Object.keys(completeData.jobs).length;
@@ -78,11 +85,10 @@
 							var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
 							d.setUTCSeconds(utcSeconds);
 							var date = formatDate(d);
-					    	//jobsArray.push("<div class='jobInside col-xs-12 col-sm-12 col-md-12'><div class='col-xs-3 col-sm-3 col-md-3'>"+completeData.jobs[i].name+" </div><div class='col-xs-2 col-sm-2 col-md-2'> "+date+" </div><div class='col-xs-3 col-sm-3 col-md-3'> "+ completeData.jobs[i].blocks[0].p_percentage+" </div><div class='col-xs-2 col-sm-2 col-md-2'>Completo</div><div class='col-xs-2 col-sm-2 col-md-2'><a href='#'>link</div></div>");
-							jobsArray.push("<tr><td>"+listnum+"</td><td>"+completeData.jobs[i].name+" </td><td> "+date+" </td><td> "+ completeData.jobs[i].blocks[0].p_percentage+" </td><td>Renderizando</td><td><a href='#'>link<td></tr>");
+								$('#bigCont').append('<div class="panel panel-default"><div class="panel-body"><div class="panel body-head"><h3>'+completeData.jobs[i].name+'</h3><span class="label label-primary">Renderizando...</span></div><div class="panel body-info"><div class="panel row-info"><p class="info-label">Fecha: </p><p class="info-text">'+date+'</p></div><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: '+completeData.jobs[i].blocks[0].p_percentage+'%;">'+completeData.jobs[i].blocks[0].p_percentage+'%</div></div></div></div></div>');
 						}
 					}	
-				$(".table tbody").html(jobsArray);
+				//addData(jobsArray);
 			});
 	};
 
@@ -95,6 +101,16 @@
 		if(mm<10){mm='0'+mm};
 		return d = dd+'/'+mm+'/'+yyyy
 	};
+
+	function addData(jobsArray){
+
+		$('#bigCont').append('<table class="table"><thead><tr><th>#</th><th>Nombre de Escena</th><th>Fecha</th><th>Porcentaje de Porgreso</th><th>Estado</th><th>Descarga</th></tr></thead><tbody id="tbodyid"></tbody></table>');
+		$(".table tbody").html(jobsArray);
+		$('.table').paging({limit:10});
+	};
+
+		
+
 
 
 })(jQuery, OC);

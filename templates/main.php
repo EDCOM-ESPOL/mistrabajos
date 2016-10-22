@@ -1,5 +1,6 @@
 <?php
-script('mistrabajos', array('script', 'paging'));
+vendor_script('mistrabajos', 'paging');
+script('mistrabajos', 'script');
 style('mistrabajos', array('bootstrap', 'style'));
 ?>
 
