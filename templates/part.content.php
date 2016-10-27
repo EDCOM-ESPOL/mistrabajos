@@ -1,5 +1,4 @@
-<!--<p>Hello World <?php //p($_['user']) ?></p>-->
-<div id="bigCont">
+<div id="bigCont" class="table-responsive">
 	<table class="table">
 		<thead>
 			<tr>

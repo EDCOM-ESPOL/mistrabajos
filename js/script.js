@@ -33,6 +33,9 @@
 		
 	});
 
+
+	
+
 	function ajaxRequestDon(){
 
 		var jobsArray = [];
@@ -47,7 +50,7 @@
 				var completeData = JSON.parse(response.get);
 				var count = Object.keys(completeData.jobs).length;
 				for (var i = 0; i < count; i++) {
-					    if (completeData.jobs[i].state === " DON" && completeData.jobs[i].user_name === $('#expandDisplayName').text()){
+					    if (completeData.jobs[i].state === " DON" && completeData.jobs[i].user_name === $('#userNameFront').text()){
 					    	listnum+=1;
 							var utcSeconds = completeData.jobs[i].time_started;
 							var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
@@ -62,6 +65,7 @@
 		};
 
 	function ajaxRequestProcess(){
+
 		var jobsArray = [];
 		var url = OC.generateUrl('/apps/mistrabajos/echo');
 			var data = {
@@ -73,7 +77,7 @@
 			    var completeData = JSON.parse(response.get);
 				var count = Object.keys(completeData.jobs).length;
 				for (var i = 0; i < count; i++) {
-					if (completeData.jobs[i].state !== " DON" && completeData.jobs[i].user_name === $('#expandDisplayName').text()){
+					if (completeData.jobs[i].state !== " DON" && completeData.jobs[i].user_name === variable/*$('#expandDisplayName').text()*/){
 						    listnum+=1;
 					    	var utcSeconds = completeData.jobs[i].time_started;
 							var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
