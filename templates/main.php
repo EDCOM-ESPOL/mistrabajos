@@ -1,5 +1,5 @@
 <?php
-vendor_script('mistrabajos', 'paging');
+vendor_script('mistrabajos', array('paging' , 'list.min' ));
 script('mistrabajos', 'script');
 style('mistrabajos', array('bootstrap', 'font-awesome.min', 'style'));
 ?>

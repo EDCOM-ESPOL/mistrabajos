@@ -18,15 +18,15 @@
         $('#endJob').attr("class", "selectedOption");
 
 		$('#endJob').click(function () {
-			//$('#processjobmessage').hide();
-			//$('#endjobmessage').show();
 			$('#endJob').attr("class", "selectedOption");
 			$('#processJob').attr("class", " ");
-			  ajaxRequestDon();
 			if (timer !== false){
 				clearInterval(timer);
 				timer = false;
+				 ajaxRequestDon();
 			}
+			 
+			
 		});
 
 		$('#processJob').click(function () {
@@ -39,8 +39,9 @@
 	});
 
 	function ajaxRequestDon(){
-
-		var jobsArray = [];
+ 
+		var jobsArray = { "data" :[]};
+		//var jobsArray =[];
 		var url = OC.generateUrl('/apps/mistrabajos/echo');
 			var data = {
 				type: "jobs"
@@ -58,10 +59,12 @@
 							d.setUTCSeconds(utcSeconds);
 							var date = formatDate(d);
 							var percentage = "<div class='progress-bar' role='progressbar' aria-valuenow= '60' aria-valuemin='0' aria-valuemax='100' style='width:100%;'>"+ completeData.jobs[i].blocks[0].p_percentage+"%</div>";
-							jobsArray.push("<tr><td>"+listnum+"</td><td>"+completeData.jobs[i].name+" </td><td> "+date+" </td><td> "+ percentage+" </td><td>Completo</td><td><a href='#'>  <i class='fa fa-arrow-circle-o-down fa-2x'></i></a><td></tr>");
+							jobsArray.data.push({ "listnum":listnum, "name":completeData.jobs[i].name, "date": date, "percentage":percentage});
+							//jobsArray.push("<tr><td>"+listnum+"</td><td>"+completeData.jobs[i].name+" </td><td> "+date+" </td><td> "+ percentage+" </td><td>Completo</td><td><a href='#'>  <i class='fa fa-arrow-circle-o-down fa-2x'></i></a><td></tr>");
 					}	
 				}
-				addData(jobsArray);
+				//jobsArray.data.sort(comp);
+				addData(jobsArray.data.sort(comp));
 			});
 		};
 
@@ -87,7 +90,7 @@
 								$('#bigCont').append('<div class="panel panel-default"><div class="panel-body"><div class="panel body-head"><h3>'+completeData.jobs[i].name+'</h3><span class="label label-primary">Renderizando...</span></div><div class="panel body-info"><div class="panel row-info"><p class="info-label">Fecha: </p><p class="info-text">'+date+'</p></div><div class="progress"><div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: '+completeData.jobs[i].blocks[0].p_percentage+'%;">'+completeData.jobs[i].blocks[0].p_percentage+'%</div></div></div></div></div>');
 						}
 					else {
-							$('#bigCont').html('<div id="endjobmessage" class="alert alert-info"><strong>Info!</strong> No hay trabajos por descargar.</div>');
+							$('#bigCont').html('<div id="processjobmessage" class="alert alert-info"><strong>Info!</strong> No hay trabajos por descargar.</div>');
 						}
 					}	
 			});
@@ -104,10 +107,22 @@
 	};
 
 	function addData(jobsArray){
-
 		$('#bigCont').append('<table class="table"><thead><tr><th>#</th><th>Nombre de Escena</th><th>Fecha</th><th>Porcentaje de Porgreso</th><th>Estado</th><th>Descarga</th></tr></thead><tbody id="tbodyid"></tbody></table>');
-		$(".table tbody").html(jobsArray);
-		$('.table').paging({limit:5});
+		$.each(jobsArray, function (index, value) {
+			$(".table tbody").append("<tr><td>"+value.listnum+"</td><td>"+value.name+" </td><td> "+value.date+" </td><td> "+ value.percentage+" </td><td>Completo</td><td><a href='#'>  <i class='fa fa-arrow-circle-o-down fa-2x'></i></a><td></tr>");
+		});
+		$('.table').paging({
+			limit:5
+		});
 	};
+
+	function comp(a, b) {
+
+		var aa = a.date.split('/').reverse().join(),
+        bb = b.date.split('/').reverse().join();
+    return bb < aa ? -1 : (bb > aa ? 1 : 0);
+    //return new Date(b.date) - new Date(a.date);
+    //return new Date(b.date).getTime() - new Date(a.date).getTime();
+};
 
 })(jQuery, OC);

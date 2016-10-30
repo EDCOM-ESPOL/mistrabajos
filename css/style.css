@@ -99,6 +99,10 @@
 
 }
 
+#processjobmessage{
+  margin-top: 2%; 
+}
+
 @media (max-width: 770px) {
   .sidenav {
     height: 15%;
