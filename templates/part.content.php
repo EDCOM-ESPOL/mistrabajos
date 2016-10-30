@@ -1,3 +1,5 @@
+<div id="processjobmessage" class="alert alert-info"><strong>Info!</strong> No hay trabajos renderizando.</div>
+<div id="endjobmessage" class="alert alert-info"><strong>Info!</strong> No hay trabajos por descargar.</div>
 <div id="bigCont" class="table-responsive">
 	<table class="table">
 		<thead>
