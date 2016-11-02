@@ -99,7 +99,7 @@
 
 }
 
-#processjobmessage{
+#processjobmessage, #endjobmessage{
   margin-top: 2%; 
 }
 
