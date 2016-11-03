@@ -45,6 +45,27 @@
 			}
 			
 		});
+
+
+		$("#search").on("keyup", function() {
+			var value = $(this).val();
+
+			$("table tr").each(function(index) {
+				if (index !== 0) {
+
+					$row = $(this);
+
+					var id = $row.find("#nami").text();
+
+				if (id.indexOf(value) !== 0) {
+					$row.hide();
+				}
+				else {
+					$row.show();
+				}
+				}
+			});
+		});
 		
 	});
 
@@ -127,7 +148,7 @@
 	function addData(jobsArray){
 		$('#bigCont').append('<table class="table"><thead><tr><th>#</th><th>Nombre de Escena</th><th>Fecha</th><th>Porcentaje de Porgreso</th><th>Estado</th><th>Descarga</th></tr></thead><tbody id="tbodyid"></tbody></table>');
 		$.each(jobsArray, function (index, value) {
-			$(".table tbody").append("<tr><td>"+value.listnum+"</td><td>"+value.name+" </td><td> "+value.date+" </td><td> "+ value.percentage+" </td><td>Completo</td><td><a href='#'>  <i class='fa fa-arrow-circle-o-down fa-2x'></i></a><td></tr>");
+			$(".table tbody").append("<tr><td>"+value.listnum+"</td><td id='nami'>"+value.name+" </td><td> "+value.date+" </td><td> "+ value.percentage+" </td><td>Completo</td><td><a href='#'>  <i class='fa fa-arrow-circle-o-down fa-2x'></i></a><td></tr>");
 		});
 		$('.table').paging({
 			limit:5
