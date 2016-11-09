@@ -28,8 +28,6 @@
 				timer = false;
 				ajaxRequestDon();
 			}
-			 
-			
 		});
 
 		$('#processJob').click(function () {
@@ -43,9 +41,22 @@
 			{
 				timer = setInterval(ajaxRequestProcess, 1000);
 			}
-			
 		});
 
+
+		$(document).on('click', '.folderPath', function (){
+			var value = $(this).attr("nameFolder");
+
+			var url = OC.filePath('mistrabajos', 'ajax', 'download.php');
+			var data = {
+				folder: value
+			};
+			$.post(url, data).success(function (response) {
+				alert('listo');
+			});
+		});
+
+	
 
 		$("#search").on("keyup", function() {
 			var value = $(this).val();
@@ -146,9 +157,12 @@
 	};
 
 	function addData(jobsArray){
+		var cont = 0;
 		$('#bigCont').append('<table class="table"><thead><tr><th>#</th><th>Nombre de Escena</th><th>Fecha</th><th>Porcentaje de Porgreso</th><th>Estado</th><th>Descarga</th></tr></thead><tbody id="tbodyid"></tbody></table>');
 		$.each(jobsArray, function (index, value) {
-			$(".table tbody").append("<tr><td>"+value.listnum+"</td><td id='nami'>"+value.name+" </td><td> "+value.date+" </td><td> "+ value.percentage+" </td><td>Completo</td><td><a href='#'>  <i class='fa fa-arrow-circle-o-down fa-2x'></i></a><td></tr>");
+			cont+=1;
+			$(".table tbody").append("<tr><td>"+cont+"</td><td id='nami'>"+value.name+" </td><td> "+value.date+" </td><td> "+ value.percentage+" </td><td>Completo</td><td><a nameFolder='"+value.name+"' href='#' class='folderPath'><i class='fa fa-arrow-circle-down fa-3x'></i></a><td></tr>");
+		//<i class='fa fa-arrow-circle-o-down fa-2x'></i>
 		});
 		$('.table').paging({
 			limit:5
@@ -156,9 +170,7 @@
 	};
 
 	function comp(a, b) {
-		var aa = a.date.split('/').reverse().join(),
-        bb = b.date.split('/').reverse().join();
-    return bb < aa ? -1 : (bb > aa ? 1 : 0);
+    return parseFloat(b.listnum) - parseFloat(a.listnum);
 };
 
 })(jQuery, OC);

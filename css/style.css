@@ -82,9 +82,15 @@
 .progress-bar{
   background-color: #5cb85c !important ;
 }
-.fa-arrow-circle-o-down{
+
+.fa-arrow-circle-down{
   color: #5cb85c !important ;
 }
+
+.fa-arrow-circle-down:hover{
+  color: #005400 !important ;
+}
+
 #userNameFront{
   text-align: center;
   width: 100%;

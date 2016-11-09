@@ -21,6 +21,6 @@ return [
     'routes' => [
 	   ['name' => 'page#index', 'url' => '/', 'verb' => 'GET'],
 	   ['name' => 'page#do_echo', 'url' => '/echo', 'verb' => 'POST'],
-	   ['name' => 'page#do_call', 'url' => '/call', 'verb' => 'POST'],
+	   ['name' => 'page#download', 'url' => '/down', 'verb' => 'POST'],
     ]
 ];
