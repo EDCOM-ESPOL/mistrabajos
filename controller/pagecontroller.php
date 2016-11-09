@@ -15,6 +15,9 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
+use OC\Archive\Archive as Archive;
+use OC\Archive\ZIP as Zipfile;
+
 
 class PageController extends Controller {
 
@@ -48,8 +51,8 @@ class PageController extends Controller {
 	public function doEcho($type) {
         $data = array("get" => array("type"=>$type));  
 		$data_string = json_encode($data);
-		//$ch = curl_init("http://200.126.7.204:51000/");
-		$ch = curl_init("http://192.168.100.2:51000/");
+		$ch = curl_init("http://200.126.7.76:51000/");
+		//$ch = curl_init("http://192.168.100.2:51000/");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
@@ -63,10 +66,17 @@ class PageController extends Controller {
 		return new DataResponse(['get' => $result]);
 	}
 
+
 	public function download($folder)
 	{
-		$dir = '/var/www/owncloud/Nube_Multimedia/admin/' . $folder;
-		$zip_file = 'file.zip';
+		$dir = '/var/www/owncloud/Nube_Multimedia/admin/erwe';
+		$zip_file = $folder.'.zip';
+
+		/*$array = ["datadir" => "Nube_Multimedia"]; 
+
+		$zipFile = new Zipfile($array);
+
+		$rootPath = $zipFile->getFolder('erwe');*/
 
 		// Get real path for our folder
 		$rootPath = realpath($dir);
@@ -108,7 +118,7 @@ class PageController extends Controller {
 		header('Content-Length: ' . filesize($zip_file));
 		readfile($zip_file);
 
-		return new DataResponse(['down' => 'listo']);
+		return new DataResponse(['down' => 'Hello']);
 	}
 
 }

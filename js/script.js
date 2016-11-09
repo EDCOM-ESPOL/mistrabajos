@@ -47,13 +47,17 @@
 		$(document).on('click', '.folderPath', function (){
 			var value = $(this).attr("nameFolder");
 
-			var url = OC.filePath('mistrabajos', 'ajax', 'download.php');
-			var data = {
+			alert(value);
+
+			//var url = OC.filePath('mistrabajos', 'ajax', 'download.php');
+			/*var url = OC.generateUrl('/apps/mistrabajos/down');
+			var parametros = {
 				folder: value
 			};
 			$.post(url, data).success(function (response) {
-				alert('listo');
-			});
+				alert(response.down);
+			}); */
+
 		});
 
 	

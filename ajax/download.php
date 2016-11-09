@@ -1,62 +1,47 @@
 <?php
-/**
- * @author Andreas Fischer <bantu@owncloud.com>
- * @author Bart Visscher <bartv@thisnet.nl>
- * @author Björn Schießle <schiessle@owncloud.com>
- * @author Frank Karlitschek <frank@owncloud.org>
- * @author Jörn Friedrich Dreyer <jfd@butonic.de>
- * @author Lukas Reschke <lukas@owncloud.com>
- * @author Morris Jobke <hey@morrisjobke.de>
- * @author Robin Appelman <icewind@owncloud.com>
- *
- * @copyright Copyright (c) 2016, ownCloud, Inc.
- * @license AGPL-3.0
- *
- * This code is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License, version 3,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License, version 3,
- * along with this program.  If not, see <http://www.gnu.org/licenses/>
- *
- */
+        $resultado = 'listo';
+		$dir = '/var/www/owncloud/Nube_Multimedia/admin/erwe' ;
+		$zip_file = 'file.zip';
 
-// Check if we are a user
-OCP\User::checkLoggedIn();
-\OC::$server->getSession()->close();
+		// Get real path for our folder
+		$rootPath = realpath($dir);
 
-$files = isset($_GET['files']) ? (string)$_GET['files'] : '';
-$dir = isset($_GET['dir']) ? (string)$_GET['dir'] : '';
+		// Initialize archive object
+		$zip = new ZipArchive();
+		$zip->open($zip_file, ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
-$files_list = json_decode($files);
-// in case we get only a single file
-if (!is_array($files_list)) {
-	$files_list = array($files);
-}
+		// Create recursive directory iterator
+		/** @var SplFileInfo[] $files */
+		$files = new RecursiveIteratorIterator(
+		new RecursiveDirectoryIterator($rootPath),
+		RecursiveIteratorIterator::LEAVES_ONLY
+		);
 
-/**
- * this sets a cookie to be able to recognize the start of the download
- * the content must not be longer than 32 characters and must only contain
- * alphanumeric characters
- */
-if(isset($_GET['downloadStartSecret'])
-	&& !isset($_GET['downloadStartSecret'][32])
-	&& preg_match('!^[a-zA-Z0-9]+$!', $_GET['downloadStartSecret']) === 1) {
-	setcookie('ocDownloadStarted', $_GET['downloadStartSecret'], time() + 20, '/');
-}
+		foreach ($files as $name => $file)
+		{
+		// Skip directories (they would be added automatically)
+		if (!$file->isDir())
+		{
+		// Get real and relative path for current file
+		$filePath = $file->getRealPath();
+		$relativePath = substr($filePath, strlen($rootPath) + 1);
 
-$server_params = array( 'head' => \OC::$server->getRequest()->getMethod() == 'HEAD' );
+		// Add current file to archive
+		$zip->addFile($filePath, $relativePath);
+		}
+		}
+		// Zip archive will be created only after closing object
+		$zip->close();
 
-/**
- * Http range requests support
- */
-if (isset($_SERVER['HTTP_RANGE'])) {
-	$server_params['range'] = \OC::$server->getRequest()->getHeader('Range');
-}
+		header('Content-Description: File Transfer');
+		header('Content-Type: application/octet-stream');
+		header('Content-Disposition: attachment; filename='.basename($zip_file));
+		header('Content-Transfer-Encoding: binary');
+		header('Expires: 0');
+		header('Cache-Control: must-revalidate');
+		header('Pragma: public');
+		header('Content-Length: ' . filesize($zip_file));
+		readfile($zip_file);
 
-OC_Files::get($dir, $files_list, $server_params);
+		echo $resultado;
+?>
