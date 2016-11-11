@@ -15,9 +15,8 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
-use OC\Archive\Archive as Archive;
-use OC\Archive\ZIP as Zipfile;
-
+use OCP\AppFramework\Http\DownloadResponse;
+use OCP\AppFramework\Http\StreamResponse;
 
 class PageController extends Controller {
 
@@ -51,8 +50,8 @@ class PageController extends Controller {
 	public function doEcho($type) {
         $data = array("get" => array("type"=>$type));  
 		$data_string = json_encode($data);
-		$ch = curl_init("http://200.126.7.76:51000/");
-		//$ch = curl_init("http://192.168.100.2:51000/");
+		//$ch = curl_init("http://200.126.7.76:51000/");
+		$ch = curl_init("http://192.168.100.2:51000/");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
@@ -67,59 +66,28 @@ class PageController extends Controller {
 	}
 
 
-	public function download($folder)
-	{
-		$dir = '/var/www/owncloud/Nube_Multimedia/admin/erwe';
-		$zip_file = $folder.'.zip';
+        /*$path = 'var/www/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg';
+        $contentType = 'image/jpeg';
 
-		/*$array = ["datadir" => "Nube_Multimedia"]; 
+        return new DownloadResponse($path, $contentType);*/
 
-		$zipFile = new Zipfile($array);
 
-		$rootPath = $zipFile->getFolder('erwe');*/
-
-		// Get real path for our folder
-		$rootPath = realpath($dir);
-
-		// Initialize archive object
-		$zip = new ZipArchive();
-		$zip->open($zip_file, ZipArchive::CREATE | ZipArchive::OVERWRITE);
-
-		// Create recursive directory iterator
-		/** @var SplFileInfo[] $files */
-		$files = new RecursiveIteratorIterator(
-		new RecursiveDirectoryIterator($rootPath),
-		RecursiveIteratorIterator::LEAVES_ONLY
-		);
-
-		foreach ($files as $name => $file)
-		{
-		// Skip directories (they would be added automatically)
-		if (!$file->isDir())
-		{
-		// Get real and relative path for current file
-		$filePath = $file->getRealPath();
-		$relativePath = substr($filePath, strlen($rootPath) + 1);
-
-		// Add current file to archive
-		$zip->addFile($filePath, $relativePath);
-		}
-		}
-		// Zip archive will be created only after closing object
-		$zip->close();
-
-		header('Content-Description: File Transfer');
-		header('Content-Type: application/octet-stream');
-		header('Content-Disposition: attachment; filename='.basename($zip_file));
+        /*header('Content-Description: File Transfer');
+		header('Content-Type: image/jpeg');
+		header('Content-Disposition: attachment; filename='.basename('var/www/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg'));
 		header('Content-Transfer-Encoding: binary');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate');
 		header('Pragma: public');
-		header('Content-Length: ' . filesize($zip_file));
-		readfile($zip_file);
+		header('Content-Length: ' .filesize('var/www/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg'));
+		readfile('var/www/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg');
 
-		return new DataResponse(['down' => 'Hello']);
-	}
+		return new DataResponse($folder);*/
+    
+
+    public function download($folder) {
+        return new StreamResponse('/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg');
+    }
 
 }
 ?>

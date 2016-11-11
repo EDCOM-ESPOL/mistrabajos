@@ -1,6 +1,6 @@
 <?php
-        $resultado = 'listo';
-		$dir = '/var/www/owncloud/Nube_Multimedia/admin/erwe' ;
+        //$resultado = 'listo';
+		$dir = '/var/www/owncloud/Nube_Multimedia/admin/quinto' ;
 		$zip_file = 'file.zip';
 
 		// Get real path for our folder
@@ -43,5 +43,5 @@
 		header('Content-Length: ' . filesize($zip_file));
 		readfile($zip_file);
 
-		echo $resultado;
+		//echo isset($resultado);
 ?>

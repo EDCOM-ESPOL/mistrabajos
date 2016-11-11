@@ -15,6 +15,21 @@
 		var timer = false;
 		ajaxRequestDon();
 
+		$(document).on('click', '.folderPath', function (){
+			//var value = $(this).attr("nameFolder");
+			//alert($(this).attr("nameFolder"));
+
+			//var url = OC.filePath('mistrabajos', 'ajax', 'download.php');
+			var url = OC.generateUrl('/apps/mistrabajos/down');
+					var data = {
+						folder: $(this).attr("nameFolder"),
+					};
+					$.post(url, data).success(function (response) {
+						window.location.href = response;
+					}); 
+
+		});
+
 		$('#endjobmessage').hide();
 		$('#processjobmessage').hide();		
 
@@ -42,24 +57,6 @@
 				timer = setInterval(ajaxRequestProcess, 1000);
 			}
 		});
-
-
-		$(document).on('click', '.folderPath', function (){
-			var value = $(this).attr("nameFolder");
-
-			alert(value);
-
-			//var url = OC.filePath('mistrabajos', 'ajax', 'download.php');
-			/*var url = OC.generateUrl('/apps/mistrabajos/down');
-			var parametros = {
-				folder: value
-			};
-			$.post(url, data).success(function (response) {
-				alert(response.down);
-			}); */
-
-		});
-
 	
 
 		$("#search").on("keyup", function() {
@@ -165,7 +162,7 @@
 		$('#bigCont').append('<table class="table"><thead><tr><th>#</th><th>Nombre de Escena</th><th>Fecha</th><th>Porcentaje de Porgreso</th><th>Estado</th><th>Descarga</th></tr></thead><tbody id="tbodyid"></tbody></table>');
 		$.each(jobsArray, function (index, value) {
 			cont+=1;
-			$(".table tbody").append("<tr><td>"+cont+"</td><td id='nami'>"+value.name+" </td><td> "+value.date+" </td><td> "+ value.percentage+" </td><td>Completo</td><td><a nameFolder='"+value.name+"' href='#' class='folderPath'><i class='fa fa-arrow-circle-down fa-3x'></i></a><td></tr>");
+			$(".table tbody").append("<tr><td>"+cont+"</td><td id='nami'>"+value.name+" </td><td> "+value.date+" </td><td> "+ value.percentage+" </td><td>Completo</td><td><a nameFolder='"+value.name+"' href='/var/www/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg' class='folderPath'><i class='fa fa-arrow-circle-down fa-3x'></i></a><td></tr>");
 		//<i class='fa fa-arrow-circle-o-down fa-2x'></i>
 		});
 		$('.table').paging({
