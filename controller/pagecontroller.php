@@ -15,8 +15,6 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
-use OCP\AppFramework\Http\DownloadResponse;
-use OCP\AppFramework\Http\StreamResponse;
 
 class PageController extends Controller {
 
@@ -50,8 +48,8 @@ class PageController extends Controller {
 	public function doEcho($type) {
         $data = array("get" => array("type"=>$type));  
 		$data_string = json_encode($data);
-		//$ch = curl_init("http://200.126.7.76:51000/");
-		$ch = curl_init("http://192.168.100.2:51000/");
+		$ch = curl_init("http://200.126.7.76:51000/");
+		//$ch = curl_init("http://192.168.100.2:51000/");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
@@ -65,29 +63,14 @@ class PageController extends Controller {
 		return new DataResponse(['get' => $result]);
 	}
 
+	public function cpFolder($folder) {
 
-        /*$path = 'var/www/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg';
-        $contentType = 'image/jpeg';
+		$src = "/var/www/owncloud/Nube_Multimedia/admin/mi_mi";
+		$dest = "/var/www/owncloud/data/admin/files/Documents";
+		$result2 = shell_exec("cp -r ".$src ." ".$dest . " ");
+		$response = 'ok';
+	return new DataResponse($result2);
 
-        return new DownloadResponse($path, $contentType);*/
-
-
-        /*header('Content-Description: File Transfer');
-		header('Content-Type: image/jpeg');
-		header('Content-Disposition: attachment; filename='.basename('var/www/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg'));
-		header('Content-Transfer-Encoding: binary');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate');
-		header('Pragma: public');
-		header('Content-Length: ' .filesize('var/www/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg'));
-		readfile('var/www/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg');
-
-		return new DataResponse($folder);*/
-    
-
-    public function download($folder) {
-        return new StreamResponse('/owncloud/Nube_Multimedia/admin/quinto/img0001.jpg');
-    }
-
+	}
 }
 ?>
