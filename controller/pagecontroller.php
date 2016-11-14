@@ -15,6 +15,7 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
+use OC\Files\Utils\Scanner as Scanner ;
 
 class PageController extends Controller {
 
@@ -48,8 +49,8 @@ class PageController extends Controller {
 	public function doEcho($type) {
         $data = array("get" => array("type"=>$type));  
 		$data_string = json_encode($data);
-		$ch = curl_init("http://200.126.7.76:51000/");
-		//$ch = curl_init("http://192.168.100.2:51000/");
+		//$ch = curl_init("http://200.126.7.76:51000/");
+		$ch = curl_init("http://192.168.100.5:51000/");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
@@ -65,9 +66,10 @@ class PageController extends Controller {
 
 	public function cpFolder($folder) {
 
-		$src = "/var/www/owncloud/Nube_Multimedia/admin/mi_mi";
+		$src = "/var/www/owncloud/Nube_Multimedia/admin/quinto";
 		$dest = "/var/www/owncloud/data/admin/files/Documents";
 		$result2 = shell_exec("cp -r ".$src ." ".$dest . " ");
+
 		$response = 'ok';
 	return new DataResponse($result2);
 
