@@ -104,10 +104,12 @@
 				}
 				if(listnum >= 1){
 					$('#endjobmessage').hide();
+					$('#search').show();
 					addData(jobsArray.data.sort(comp));
 				}
 				else {
 					$('#endjobmessage').show();
+					$('#search').hide();
 				}
 			});
 		};
@@ -137,10 +139,12 @@
 
 			if(listnum >= 1){
 				$('#processjobmessage').hide();
+				$('#search').show();
 				$('#bigCont').html(jobsArray);
 			}
 			else {
 				$('#processjobmessage').show();
+				$('#search').hide();
 			}
 		});
 	};

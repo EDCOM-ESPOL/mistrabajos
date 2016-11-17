@@ -50,7 +50,7 @@ class PageController extends Controller {
         $data = array("get" => array("type"=>$type));  
 		$data_string = json_encode($data);
 		//$ch = curl_init("http://200.126.7.76:51000/");
-		$ch = curl_init("http://192.168.1.4:51000/");
+		$ch = curl_init("http://192.168.100.4:51000/");
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
@@ -68,25 +68,23 @@ class PageController extends Controller {
 
 		$src = escapeshellarg("/var/www/owncloud/Nube_Multimedia/admin/" . $folder);
 		$dest = escapeshellarg("/var/www/owncloud/data/admin/files/Documents");
-		// if (shell_exec("cp -r " . $src . " " . $dest)) {
-		// 	$result = $dest;
-		// }
-		$output = shell_exec("sh /var/www/owncloud/apps/mistrabajos/sh/cp.sh " . $src . " ". $dest ." 2>&1");
+		$output = shell_exec("sh /var/www/owncloud/apps/mistrabajos/sh/cp.sh " . $src . " ". $dest);
+
 		if ($output) {
-			//$result = scanFiles($dest);
+			$new = $this->scanFiles($folder);
 			$result = 'ok';
-		} else {
+		}
+		else {
 			$result = 'no';
 		}
-		//$response = 'ok';
-		return new DataResponse($result);
-	}
+		return new DataResponse($output);
+		}
 
-	public function scanFiles($dest) {
+	public function scanFiles($folder) {
 		$scanner = new Scanner ($this->userId, \OC::$server->getDatabaseConnection(), \OC::$server->getLogger());
-		$result = $scanner->scan($dest);
+		$result = $scanner->scan('/'. $this->userId . '/files/Documents/' . $folder);
 		
-		return $dest;
+		return $result;
 	}
 }
 ?>
