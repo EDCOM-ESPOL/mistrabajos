@@ -15,7 +15,7 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\Controller;
-use OC\Files\Utils\Scanner as Scanner;
+
 
 class PageController extends Controller {
 
@@ -62,29 +62,6 @@ class PageController extends Controller {
 		curl_close($ch);
 
 		return new DataResponse(['get' => $result]);
-	}
-
-	public function cpFolder($folder) {
-
-		$src = escapeshellarg("/var/www/owncloud/Nube_Multimedia/admin/" . $folder);
-		$dest = escapeshellarg("/var/www/owncloud/data/admin/files/Documents");
-		$output = shell_exec("sh /var/www/owncloud/apps/mistrabajos/sh/cp.sh " . $src . " ". $dest);
-
-		if ($output) {
-			$new = $this->scanFiles($folder);
-			$result = 'ok';
-		}
-		else {
-			$result = 'no';
-		}
-		return new DataResponse($output);
-		}
-
-	public function scanFiles($folder) {
-		$scanner = new Scanner ($this->userId, \OC::$server->getDatabaseConnection(), \OC::$server->getLogger());
-		$result = $scanner->scan('/'. $this->userId . '/files/Documents/' . $folder);
-		
-		return $result;
 	}
 }
 ?>

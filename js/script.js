@@ -17,15 +17,13 @@
 
 		$(document).on('click', '.folderPath', function (){
 
-			//alert($(this).attr("nameFolder"));
 			var url = OC.generateUrl('/apps/mistrabajos/cp');
-					var data = {
-						folder: $(this).attr("nameFolder"),
-					};
-					$.post(url, data).success(function (response) {
-						alert(response);
-					}); 
-
+			var data = {
+				folder: $(this).attr("nameFolder"),
+			};
+			$.post(url, data).success(function (response) {
+				alert(response);
+			}); 
 		});
 
 		$('#endjobmessage').hide();
@@ -76,7 +74,6 @@
 				}
 			});
 		});
-		
 	});
 
 	function ajaxRequestDon(){
