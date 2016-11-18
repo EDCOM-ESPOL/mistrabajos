@@ -51,15 +51,15 @@ class CopyController extends Controller{
         $src = escapeshellarg("/var/www/owncloud/Nube_Multimedia/". $this->userId . "/" . $folder);
         $dest = escapeshellarg("/var/www/owncloud/data/". $this->userId ."/files/Documents");
         $output = shell_exec("sh /var/www/owncloud/apps/mistrabajos/sh/cp.sh " . $src . " ". $dest);
-
-        if ($output) {
+        //var_dump($output);
+        if (strpos(output, 'Successful') !== false) {
             $new = $this->scanFiles($folder);
             $result = 'ok';
         }
         else {
             $result = 'no';
         }
-        return new DataResponse($output);
+        return new DataResponse($result);
         }
 
     public function scanFiles($folder) {

@@ -4,7 +4,7 @@
 # dest=$2
 
 
-if cp -r $1 $2
+if mv $1 $2
 then
    echo "$? - Successful"
 else
