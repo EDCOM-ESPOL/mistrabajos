@@ -48,18 +48,30 @@ class CopyController extends Controller{
 
     public function cpFolder($folder) {
 
-        $src = escapeshellarg("/var/www/owncloud/Nube_Multimedia/". $this->userId . "/" . $folder);
-        $dest = escapeshellarg("/var/www/owncloud/data/". $this->userId ."/files/Documents");
+        $mensaje;
+
+        $src =("/var/www/owncloud/Nube_Multimedia/". $this->userId . "/" . $folder);
+        $dest = ("/var/www/owncloud/data/". $this->userId ."/files/Documents");
         $output = shell_exec("sh /var/www/owncloud/apps/mistrabajos/sh/cp.sh " . $src . " ". $dest);
-        //var_dump($output);
-        if (strpos(output, 'Successful') !== false) {
+
+        $path = $dest . "/". $folder;
+        /*if ($output) {
             $new = $this->scanFiles($folder);
             $result = 'ok';
         }
         else {
             $result = 'no';
-        }
-        return new DataResponse($result);
+        }*/
+        
+            if (file_exists($path)) {
+                $new = $this->scanFiles($folder);
+                $result =  true;
+            } else {
+                $result = false;
+            }
+        
+        return new DataResponse(['result' => $result,
+                                 'path' => $folder]);
         }
 
     public function scanFiles($folder) {

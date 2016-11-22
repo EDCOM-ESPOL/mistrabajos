@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# src=$1
-# dest=$2
-
-
-if mv $1 $2
+if cp -R $1 $2
 then
-   echo "$? - Successful"
+	rm -r $1
+	echo "Successful"
+
 else
-   echo "$? - Unsuccessful"
+   echo "Unsuccessful"
 fi

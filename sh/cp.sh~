@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if  cp -r $1 $2 
+then
+   echo "$?"
+else
+   echo "$?"
+fi
