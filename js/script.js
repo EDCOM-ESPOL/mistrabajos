@@ -164,7 +164,6 @@
 		$.each(jobsArray, function (index, value) {
 			cont+=1;
 			$(".table tbody").append("<tr><td>"+cont+"</td><td id='nami'>"+value.name+" </td><td> "+value.date+" </td><td> "+ value.percentage+" </td><td>Completo</td><td><a nameFolder='"+value.name+"' href='#' class='folderPath'><i class='fa fa-archive  fa-2x'></i></a><td></tr>");
-		//<i class='fa fa-arrow-circle-o-down fa-2x'></i>
 		});
 		$('.table').paging({
 			limit:5
