@@ -11,7 +11,6 @@
 (function ($, OC) {
 var timer = false;
 	$(document).ready(function () {
-        
 		ajaxRequestDon();
 
 		$(document).on('click', '.folderPath', function (){
@@ -146,7 +145,7 @@ var timer = false;
 					    if (completeData.jobs[i].state === " DON" && completeData.jobs[i].user_name === $('#userNameFront').text()){
 					    	listnum+=1;
 							var utcSeconds = completeData.jobs[i].time_started;
-							var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+							var d = new Date(0); 
 							d.setUTCSeconds(utcSeconds);
 							var date = formatDate(d);
 							var percentage = "<div class='progress-bar' role='progressbar' aria-valuenow= '60' aria-valuemin='0' aria-valuemax='100' style='width:100%;'>"+ completeData.jobs[i].blocks[0].p_percentage+"%</div>";
