@@ -18,7 +18,7 @@ use OCP\AppFramework\Controller;
 use OC\Files\Utils\Scanner as Scanner;
 
 
-class CopyController extends Controller{
+class CpController extends Controller{
     
 	private $userId;
   
