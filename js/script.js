@@ -9,10 +9,9 @@
  */
 
 (function ($, OC) {
-
+var timer = false;
 	$(document).ready(function () {
         
-		var timer = false;
 		ajaxRequestDon();
 
 		$(document).on('click', '.folderPath', function (){
@@ -34,13 +33,16 @@
         $('#endJob').attr("class", "selectedOption");
 
         if(localStorage.getItem('id') == '#endJob') {
+        	localStorage.setItem('id', '');
 			showEndJob();
 		} else if(localStorage.getItem('id') == '#processJob') {
+			localStorage.setItem('id', '');
 			showProcessJob();
 		}
 
 		$('#endJob').click(function () {
-			showEndJob();
+			$('#endJob').attr("class", "selectedOption");
+			$('#processJob').attr("class", " ");
 			if (timer !== false){
 				clearInterval(timer);
 				timer = false;
@@ -50,7 +52,8 @@
 
 		$('#processJob').click(function () {
 			$('#bigCont').empty();
-			showProcessJob();
+			$('#processJob').attr("class", "selectedOption");
+			$('#endJob').attr("class", " ");
             if (timer !== false){
 				clearInterval(timer);
 			}
@@ -83,19 +86,36 @@
 	});
 
 	function showEndJob() {
+		// $('#endJob').attr("class", "selectedOption");
+		// $('#processJob').attr("class", " ");
+		// $('#endjobmessage').show();
+		// $('#processjobmessage').hide();
+		// $('#bigCont').show();
 		$('#endJob').attr("class", "selectedOption");
-		$('#processJob').attr("class", " ");
-		$('#endjobmessage').hide();
-		$('#processjobmessage').hide();
-		$('#bigCont').show();
+			$('#processJob').attr("class", " ");
+			if (timer !== false){
+				clearInterval(timer);
+				timer = false;
+				ajaxRequestDon();
+			}
 	}
 
 	function showProcessJob() {
-		$('#search').hide();
-		$('#bigCont').hide();
-		$('#processjobmessage').show();
-		$('#processJob').attr("class", "selectedOption");
-		$('#endJob').attr("class", " ");
+		// $('#search').hide();
+		// $('#bigCont').hide();
+		// $('#processjobmessage').show();
+		// $('#processJob').attr("class", "selectedOption");
+		// $('#endJob').attr("class", " ");
+		$('#bigCont').empty();
+			$('#processJob').attr("class", "selectedOption");
+			$('#endJob').attr("class", " ");
+            if (timer !== false){
+				clearInterval(timer);
+			}
+			else
+			{
+				timer = setInterval(ajaxRequestProcess, 1000);
+			}
 	}
 
 	function ajaxRequestDon(){
