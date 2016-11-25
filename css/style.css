@@ -38,13 +38,16 @@
  }
 
  #app-content-wrapper {
- 	padding-left: 0;
- 	height: 100%;
+  padding-left: 0;
+  height: 100%;
  }
   .selectedOption {
     color: #f1f1f1 !important;
   }
-
+#job-content{
+  padding-right: 15px;
+  padding-left: 15px;
+}
 .body-head h3, .body-head span {
   display: inline-block;
 }
@@ -83,11 +86,11 @@
   background-color: #5cb85c !important ;
 }
 
-.fa-archive{
+.fa-arrow-circle-down{
   color: #5cb85c !important ;
 }
 
-.fa-archive:hover{
+.fa-arrow-circle-down:hover{
   color: #005400 !important ;
 }
 

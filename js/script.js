@@ -33,6 +33,19 @@
 
         $('#endJob').attr("class", "selectedOption");
 
+        if(localStorage.getItem('id') == '#endJob') {
+			$('#endJob').attr("class", "selectedOption");
+			$('#processJob').attr("class", " ");
+			$('#endjobmessage').show();
+			$('#processjobmessage').hide();
+		} else if(localStorage.getItem('id') == '#processJob') {
+			$('#search').hide();
+			$('#bigCont').hide();
+			$('#processjobmessage').show();
+			$('#processJob').attr("class", "selectedOption");
+			$('#endJob').attr("class", " ");
+		}
+
 		$('#endJob').click(function () {
 			$('#endJob').attr("class", "selectedOption");
 			$('#processJob').attr("class", " ");
