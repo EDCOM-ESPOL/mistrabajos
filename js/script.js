@@ -68,7 +68,7 @@ var timer = false;
 			$(this).hide();
 		});
 		$('#openNav').click(function() {
-			document.getElementById("job-nav").style.height = "22%";
+			document.getElementById("job-nav").style.height = "25%";
 			$('#closeNav').css('display', 'block');
 			$('#job-nav ul').css('display', 'block');
 			$(this).hide();
