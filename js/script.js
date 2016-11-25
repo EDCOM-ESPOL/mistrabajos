@@ -62,6 +62,18 @@ var timer = false;
 				timer = setInterval(ajaxRequestProcess, 1000);
 			}
 		});
+		$('#closeNav').click(function() {
+			document.getElementById("job-nav").style.height = "7%";
+			$('#openNav').css('display', 'block');
+			$('#job-nav ul').css('display', 'none');
+			$(this).hide();
+		});
+		$('#openNav').click(function() {
+			document.getElementById("job-nav").style.height = "22%";
+			$('#closeNav').css('display', 'block');
+			$('#job-nav ul').css('display', 'block');
+			$(this).hide();
+		});	
 	
 
 		$("#search").on("keyup", function() {
