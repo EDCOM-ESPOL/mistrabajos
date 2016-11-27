@@ -38,9 +38,8 @@ class CpController extends Controller{
 	 * @NoCSRFRequired
 	 */
 
-    public function cpFolder($folder) {
+    public function cpFolder($folder,$id_job,$host_name) {
 
-        $mensaje;
         $src =("/var/www/owncloud/Nube_Multimedia/". $this->userId . "/" . $folder);
         $dest = ("/var/www/owncloud/data/". $this->userId ."/files/Documents");
         $output = shell_exec("sh /var/www/owncloud/apps/mistrabajos/sh/cp.sh " . $src ." ". $dest);
@@ -48,20 +47,42 @@ class CpController extends Controller{
         $path = $dest . "/". $folder;
 
         if (file_exists($path)) {
-            $new = $this->scanFiles($folder);
+            $new = $this->scanFiles($folder, $id_job, $host_name);
             $result =  true;
         } else {
             $result = false;
         }
 
-        return new DataResponse(['result' => $result, 'path' => $folder]);
+        return new DataResponse(['result' => $result, 'path' => $new]);
     }
 
-    public function scanFiles($folder) {
+    public function scanFiles($folder,$id_job,$host_name) {
 
         $scanner = new Scanner ($this->userId, \OC::$server->getDatabaseConnection(), \OC::$server->getLogger());
         $result = $scanner->scan('/'. $this->userId . '/files/Documents/' . $folder);
+        $deleteJob = $this->deleteJob($id_job,$host_name);
         
+        return $deleteJob;
+    }
+
+
+    protected function deleteJob($id_job,$host_name) {
+
+       // $userId = '"' . $this->userId . '"';
+
+        $data = array('action' => array('user_name' => 'user1', 'host_name' =>  'master', 'type' => 'jobs', 'operation' => array('type'=>'delete')));  
+        $data_string = json_encode($data);
+        $ch = curl_init("http://localhost:51000/");
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
+        'AFANASY: 103',     
+        'Content-Type: application/json')                                 
+        );                                                                  
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
         return $result;
     }
 }
