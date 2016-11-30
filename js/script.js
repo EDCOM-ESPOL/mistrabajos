@@ -31,8 +31,7 @@ var timer = false;
 				host_name :$(this).attr("host_name"),
 			};
 			$.post(url, data).success(function (response) {
-				alert(response.path);
-				
+				window.location.href = 'owncloud/apps/files/?dir=%2FDocuments';
 			}); 
 		});
 
