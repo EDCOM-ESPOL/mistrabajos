@@ -70,14 +70,18 @@ class CpController extends Controller{
 
        // $userId = '"' . $this->userId . '"';
 
-        $data = array('action' => array('user_name' => 'user1', 'host_name' =>  'master', 'type' => 'jobs', 'operation' => array('type'=>'delete')));  
+        $ids = array(2);
+
+        $data = array("action" => array("user_name" => "user1","host_name" => "master","type" => "jobs", "ids" => $ids, "operation" => array("type" => "delete")));  
+
         $data_string = json_encode($data);
         $ch = curl_init("http://localhost:51000/");
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST"); 
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
-        'AFANASY: 103',     
-        'Content-Type: application/json')                                 
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array( 
+        'AFANASY: ' . strlen($data_string), 
+        'Content-Type: application/json'
+        )                       
         );                                                                  
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch);
