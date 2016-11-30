@@ -67,12 +67,10 @@ class CpController extends Controller{
 
 
     protected function deleteJob($id_job,$host_name) {
+      
+        $ids = array(intval($id_job));
 
-       // $userId = '"' . $this->userId . '"';
-
-        $ids = array(2);
-
-        $data = array("action" => array("user_name" => "user1","host_name" => "master","type" => "jobs", "ids" => $ids, "operation" => array("type" => "delete")));  
+        $data = array("action" => array("user_name" => $this->userId,"host_name" => $host_name,"type" => "jobs", "ids" => $ids, "operation" => array("type" => "delete")));  
 
         $data_string = json_encode($data);
         $ch = curl_init("http://localhost:51000/");
