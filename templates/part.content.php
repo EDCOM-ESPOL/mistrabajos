@@ -1,4 +1,4 @@
-<input type="text" id="search" placeholder="  live search"></input>
+<input type="text" id="search" placeholder="Buscar"></input>
 <div id="processjobmessage" class="alert alert-info"><strong>Info!</strong> No hay trabajos renderizando.</div>
 <div id="endjobmessage" class="alert alert-info"><strong>Info!</strong> No hay trabajos por descargar.</div>
 <div id="bigCont" class="table-responsive">
