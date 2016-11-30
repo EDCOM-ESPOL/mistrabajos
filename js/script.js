@@ -12,7 +12,16 @@
 var timer = false;
 	$(document).ready(function () {
 		ajaxRequestDon();
-
+		$( window ).resize(function() {
+			if($(window).width() <= 770) {
+				$( ".jobnav-top" ).show();
+				$("#job-nav").height("7%");
+			} else {
+				$( "#job-nav ul" ).show();
+				$( ".jobnav-top" ).hide();
+				$("#job-nav").height("100%");
+			}
+		});
 		$(document).on('click', '.folderPath', function (){
 
 			var url = OC.generateUrl('/apps/mistrabajos/cp');
