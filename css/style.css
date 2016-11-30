@@ -101,15 +101,17 @@
   margin-bottom: 0;
 }
 #job-nav{
-  padding-right:  0;
-  padding-top:  0;
+  height: 100%;
+  padding-right: 0;
+  padding-top: 0;
   color: #f1f1f1;
   font-size: 20px;
-
 }
-
 #processjobmessage, #endjobmessage{
   margin-top: 2%; 
+}
+.jobnav-top {
+  display: none;
 }
 
 @media (max-width: 770px) {
@@ -135,19 +137,17 @@
     padding-right: 0;
   }
   #job-nav {
-    /*display: none;*/
     height: 7%;
     margin-bottom: 10px;
-    /*padding-right:  0;
-    padding-top:  0;
-    color: #f1f1f1;
-    font-size: 20px;*/
   }
   #job-nav ul {
     display: none;
   }
   #userNameFront {
     display: none;
+  }
+  .jobnav-top {
+    display: block;
   }
   .jobnav-top a {
     text-align: right;
