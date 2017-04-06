@@ -54,7 +54,7 @@ class PageController extends Controller {
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
 		curl_setopt($ch, CURLOPT_HTTPHEADER, array(  
 		'AFANASY: 23',     
-		'Content-Type: application/json')                                 
+		'Content-Type: application/json')
 		);                                                                  
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$result = curl_exec($ch);

@@ -41,9 +41,9 @@ class CopyController extends Controller{
     public function cpFolder($folder) {
 
         $mensaje;
-        $src =("/var/www/owncloud/Nube_Multimedia/". $this->userId . "/" . $folder);
-        $dest = ("/var/www/owncloud/data/". $this->userId ."/files/Documents");
-        $output = shell_exec("sh /var/www/owncloud/apps/mistrabajos/sh/cp.sh " . $src ." ". $dest);
+        $src =("/var/www/html/owncloud/Nube_Multimedia/". $this->userId . "/" . $folder);
+        $dest = ("/var/www/html/owncloud/data/". $this->userId ."/files/Documents");
+        $output = shell_exec("sh /var/www/html/owncloud/apps/mistrabajos/sh/cp.sh " . $src ." ". $dest);
 
         $path = $dest . "/". $folder;
 
