@@ -153,12 +153,28 @@ var timer = false;
 				for (var i = 0; i < count; i++) {
 					    if (completeData.jobs[i].state === " DON" && completeData.jobs[i].user_name === $('#userNameFront').text()){
 					    	listnum+=1;
+					    	/*Formato para presentar fecha*/
 							var utcSeconds = completeData.jobs[i].time_started;
 							var d = new Date(0); 
 							d.setUTCSeconds(utcSeconds);
 							var date = formatDate(d);
+
+							/*Formato para presentar hora inicio*/
+
+							var utcSecondsInicio = completeData.jobs[i].time_started;
+							var d_Inicio = new Date(0); 
+							d_Inicio.setUTCSeconds(utcSecondsInicio);
+							var horaInicio = formatHour(d_Inicio);
+
+
+							/*Formato para presentar hora fin*/
+							var utcSecondsFin = completeData.jobs[i].time_done;
+							var d_Fin = new Date(0); 
+							d_Fin.setUTCSeconds(utcSecondsFin);
+							var horaFin = formatHour(d_Fin);
+
 							var percentage = "<div class='progress-bar' role='progressbar' aria-valuenow= '60' aria-valuemin='0' aria-valuemax='100' style='width:100%;'>"+ completeData.jobs[i].blocks[0].p_percentage+"%</div>";
-							jobsArray.data.push({"id_job":completeData.jobs[i].id, "host_name": completeData.jobs[i].host_name, "listnum":listnum, "name":completeData.jobs[i].name, "date": date, "percentage":percentage});					
+							jobsArray.data.push({"id_job":completeData.jobs[i].id, "host_name": completeData.jobs[i].host_name, "listnum":listnum, "name":completeData.jobs[i].name, "date": date, "horaInicio": horaInicio, "horaFin": horaFin, "percentage":percentage});					
 					}
 				}
 				if(listnum >= 1){
@@ -192,7 +208,13 @@ var timer = false;
 					var d = new Date(0);
 					d.setUTCSeconds(utcSeconds);
 					var date = formatDate(d);
-					jobsArray.push('<div class="panel panel-default"><div class="panel-body"><div class="panel body-head"><h3>'+completeData.jobs[i].name+'</h3><span class="label label-primary">Renderizando...</span></div><div class="panel body-info"><div class="panel row-info"><p class="info-label">Fecha: </p><p class="info-text">'+date+'</p></div><div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: '+completeData.jobs[i].blocks[0].p_percentage+'%;">'+completeData.jobs[i].blocks[0].p_percentage+'%</div></div></div></div></div>');
+					if (completeData.jobs[i].blocks[0].p_percentage != null) {
+						jobsArray.push('<div class="panel panel-default"><div class="panel-body"><div class="panel body-head"><h3>'+completeData.jobs[i].name+'</h3><span class="label label-primary">Renderizando...</span></div><div class="panel body-info"><div class="panel row-info"><p class="info-label">Fecha: </p><p class="info-text">'+date+'</p></div><div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: '+completeData.jobs[i].blocks[0].p_percentage+'%;">'+completeData.jobs[i].blocks[0].p_percentage+'%</div></div></div></div></div>');
+					}
+					else {
+						jobsArray.push('<div class="panel panel-default"><div class="panel-body"><div class="panel body-head"><h3>'+completeData.jobs[i].name+'</h3><span class="label label-primary">Renderizando...</span></div><div class="panel body-info"><div class="panel row-info"><p class="info-label">Fecha: </p><p class="info-text">'+date+'</p></div><div class="progress"><div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 1%;"> 1% </div></div></div></div></div>');
+
+					}
 				}
 			}
 
@@ -218,12 +240,27 @@ var timer = false;
 		return d = dd+'/'+mm+'/'+yyyy
 	};
 
+	function addZero(i) {
+	    if (i < 10) {
+	        i = "0" + i;
+	    }
+    	return i;
+	}
+
+	function formatHour(d) {
+	    var hour = new Date(d);
+	    var h = addZero(hour.getHours());
+	    var m = addZero(hour.getMinutes());
+	    var s = addZero(hour.getSeconds());
+	    return hour = h + ":" + m + ":" + s;
+	}
+
 	function addData(jobsArray){
 		var cont = 0;
-		$('#bigCont').append('<table class="table"><thead><tr><th>#</th><th>Nombre de Escena</th><th>Fecha</th><th>Porcentaje de Porgreso</th><th>Estado</th><th>Ver Archivos</th></tr></thead><tbody id="tbodyid"></tbody></table>');
+		$('#bigCont').append('<table class="table"><thead><tr><th>#</th><th>Nombre de Escena</th><th>Fecha</th><th>Hora Inicio</th><th>Hora Fin</th><th>Porcentaje de Progreso</th><th>Estado</th><th>Ver Archivos</th></tr></thead><tbody id="tbodyid"></tbody></table>');
 		$.each(jobsArray, function (index, value) {
 			cont+=1;
-			$(".table tbody").append("<tr><td>"+cont+"</td><td id='nami'>"+value.name+" </td><td> "+value.date+" </td><td> "+ value.percentage+" </td><td>Completo</td><td><a host_name="+ value.host_name +" id_job=" + value.id_job +" nameFolder='"+value.name+"' href='#' class='folderPath'><i class='fa fa-archive  fa-2x'></i></a><td></tr>");
+			$(".table tbody").append("<tr><td>"+ cont +"</td><td id='nami'>"+ value.name +" </td><td> "+ value.date +" </td><td> "+ value.horaInicio + " </td><td> " + value.horaFin + " </td><td> "+ value.percentage +" </td><td>Completo</td><td><a host_name="+ value.host_name +" id_job=" + value.id_job +" nameFolder='"+value.name+"' href='#' class='folderPath'><i class='fa fa-archive  fa-2x'></i></a><td></tr>");
 		});
 		$('.table').paging({
 			limit:5

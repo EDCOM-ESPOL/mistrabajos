@@ -8,7 +8,9 @@
 				<th>#</th>
 				<th>Nombre de Escena</th>
 				<th>Fecha</th>
-				<th>Porcentaje de Porgreso</th>
+				<th>Hora Inicio</th>
+				<th>Hora Fin</th>
+				<th>Porcentaje de Progreso</th>
 				<th>Estado</th>
 				<th>Descarga</th>
 			</tr>
