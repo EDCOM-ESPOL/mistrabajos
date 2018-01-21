@@ -13,7 +13,6 @@
 	<div id="endjobmessage" class="alert alert-info"><strong>Info!</strong> No hay trabajos por descargar.</div>
 	<div id="job-progress">
 		<div id="bigCont" class="table-responsive">
-			
 			<table class="table">
 				<thead>
 					<tr class="row">

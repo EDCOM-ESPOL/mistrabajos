@@ -1,5 +1,5 @@
 .sidenav-left {
-	background-color: #340A68;/*#340A68;*/
+	background-color: #222E6A;
 	padding-top: 2%;
 	width: 250px;
 	position: fixed;
@@ -96,7 +96,7 @@ thead th {
 	height: 40px !important;
 }
 .fa-floppy-o{
-	color: #FF8500 !important ;
+	color: #FF8400 !important ;
 }
 .fa-floppy-o:hover{
 	color: #EE7400 !important ;
@@ -105,6 +105,7 @@ thead th {
 	text-align: center;
 	width: 100%;
 	margin-bottom: 0;
+	padding-top: 5px;
 }
 #job-nav{
 	height: 100%;
@@ -158,14 +159,14 @@ thead th {
 	margin-bottom: 3px;
 }
 #search button {
-	background-color: #FF8500;
+	background-color: #FF8400;
 	color: white;
 }
 .table thead {
-	background-color: #7231C5;
+	background-color: #5965B1;
 }
 thead tr {
-	background-color: #7231C5 !important;
+	background-color: #5965B1 !important;
 }
 thead tr th {
 	color: #fff !important;
