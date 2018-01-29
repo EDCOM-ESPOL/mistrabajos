@@ -9,13 +9,14 @@
  */
 
 (function ($, OC) {
-var timer = false;
+	var timer = false;
+	
 	$(document).ready(function () {
 		ajaxRequestDon();
 		$( window ).resize(function() {
 			if($(window).width() <= 770) {
 				$( ".jobnav-top" ).show();
-				$("#job-nav").height("7%");
+				$("#job-nav").height("45px");
 			} else {
 				$( "#job-nav ul" ).show();
 				$( ".jobnav-top" ).hide();
@@ -23,15 +24,17 @@ var timer = false;
 			}
 		});
 		$(document).on('click', '.folderPath', function (){
-
+			$('#loading-state').show();
 			var url = OC.generateUrl('/apps/mistrabajos/cp');
 			var data = {
 				folder: $(this).attr("nameFolder"),
 				id_job: $(this).attr("id_job"),
 				host_name :$(this).attr("host_name"),
 			};
+
 			$.post(url, data).success(function (response) {
-				window.location.href = 'owncloud/apps/files/?dir=%2FDocuments';
+				$('#loading-state').hide();
+				window.location.href = 'owncloud/apps/files?dir=//Documents';
 			});
 		});
 
@@ -71,13 +74,13 @@ var timer = false;
 			}
 		});
 		$('#closeNav').click(function() {
-			document.getElementById("job-nav").style.height = "7%";
+			document.getElementById("job-nav").style.height = "45px";
 			$('#openNav').css('display', 'block');
 			$('#job-nav ul').css('display', 'none');
 			$(this).hide();
 		});
 		$('#openNav').click(function() {
-			document.getElementById("job-nav").style.height = "25%";
+			document.getElementById("job-nav").style.height = "auto";
 			$('#closeNav').css('display', 'block');
 			$('#job-nav ul').css('display', 'block');
 			$(this).hide();
