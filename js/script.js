@@ -205,6 +205,7 @@
 			var listnum=0;
 			var completeData = JSON.parse(response.get);
 			var count = Object.keys(completeData.jobs).length;
+			console.log(completeData);
 			for (var i = 0; i < count; i++) {
 				if ((completeData.jobs[i].state === " RDY RUN" && completeData.jobs[i].user_name === $('#userNameFront').text()) || (completeData.jobs[i].state === " RDY" && completeData.jobs[i].user_name === $('#userNameFront').text())){
 					listnum+=1;

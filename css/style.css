@@ -29,7 +29,9 @@
 	color: #fdfdfd;
 	font-size: 100px;
 }
-
+#job-nav ul {
+	margin-top: 15px !important;
+}
 #tbodyid tr {
 	word-break: break-all;
 }
@@ -106,6 +108,7 @@ thead th {
 	width: 100%;
 	margin-bottom: 0;
 	padding-top: 5px;
+	display: none;
 }
 #job-nav{
 	height: 100%;

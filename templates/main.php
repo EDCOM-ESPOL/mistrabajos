@@ -10,12 +10,12 @@ style('mistrabajos', array('bootstrap', 'font-awesome.min', 'style'));
 			<div id="job-nav" class="sidenav-left">
 				<!-- <div class="user-image">
 					<i class="fa fa-user-circle" aria-hidden="true"></i>
-				</div>
-            	<p id="userNameFront"><?php p($_['user']);?></p> -->
+				</div> -->
+            	<p id="userNameFront" display="none"><?php p($_['user']);?></p>
             	<?php print_unescaped($this->inc('part.navigation')); ?>
 			</div>
          <div class="job-content">
-             <?php print_unescaped($this->inc('part.content')); ?>
+            <?php print_unescaped($this->inc('part.content')); ?>
          </div>
 		</div>
 	</div>
